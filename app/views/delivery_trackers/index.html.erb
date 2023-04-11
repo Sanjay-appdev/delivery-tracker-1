@@ -1,8 +1,20 @@
-<div>
+<body>
+      <a href="/">Your todo list</a>
+      |
+      <a href="/edit_user_profile">Edit profile</a>
+      |
+      <a href="/user_sign_out">Sign out</a>
+    
+      <p>Deleted.</p>
+
+    
+    <div>
   <div>
     <h1>
-      List of all delivery trackers
+      Delivery Tracker
     </h1>
+
+    <p>Know if something gets lost in the mail.</p>
   </div>
 </div>
 
@@ -11,24 +23,24 @@
 <div>
   <div>
     <h2>
-      Add a new delivery tracker
+      Expecting a package?
     </h2>
 
-    <form action="/insert_delivery_tracker" method="post">
+    <form action="/insert_delivery" method="post">
       <div>
         <label for="description_box">
           Description
         </label>
 
-        <textarea id="description_box" name="query_description" rows="3"></textarea>
+        <input type="text" id="description_box" name="query_description">
       </div>
 
       <div>
-        <label for="arrival_box">
-          Arrival
+        <label for="supposed_to_arrive_on_box">
+          Supposed to arrive on
         </label>
 
-        <input type="date" id="arrival_box" name="query_arrival">
+        <input type="date" id="supposed_to_arrive_on_box" name="query_supposed_to_arrive_on">
       </div>
 
       <div>
@@ -39,96 +51,107 @@
         <textarea id="details_box" name="query_details" rows="3"></textarea>
       </div>
 
-      <div>
-        <label for="status_box">
-          Status
-        </label>
-
-        <input type="text" id="status_box" name="query_status">
-      </div>
-
       <button>
-        Create delivery tracker
+        Log delivery
       </button>
     </form>
   </div>
 </div>
 
 <hr>
-<div>
-  <div>
-    <table border="1">
-      <tr>
-        <th>
-          ID
-        </th>
 
-        <th>
-          Description
-        </th>
+<div class="waiting_on">
+  <h2>Waiting on</h2>
 
-        <th>
-          Arrival
-        </th>
+  <ul>
+      <li>
+        <div>Incredible Plastic Watch</div>
 
-        <th>
-          Details
-        </th>
+        <div style="">
+          Supposed to arrive on
+          2023-04-14
+        </div>
 
-        <th>
-          Status
-        </th>
+        <div>
+          USPS tracking #553290281187
+        </div>
 
-        <th>
-          Created at
-        </th>
+        <div>
+          <form action="/modify_delivery/186182" method="post">
+            <input type="hidden" name="arrived" value="true">
 
-        <th>
-          Updated at
-        </th>
+            <button>Mark as received</button>
+          </form>
+        </div>
+        
+        <br>
+      </li>
+      <li>
+        <div>Enormous Leather Clock</div>
 
-        <th>
-        </th>
-      </tr>
+        <div style="">
+          Supposed to arrive on
+          2023-04-20
+        </div>
 
-      <% @list_of_delivery_trackers.each do |a_delivery_tracker| %>
-      <tr>
-        <td>
-          <%= a_delivery_tracker.id %>
-        </td>
+        <div>
+          
+        </div>
 
-        <td>
-          <%= a_delivery_tracker.description %>
-        </td>
+        <div>
+          <form action="/modify_delivery/186185" method="post">
+            <input type="hidden" name="arrived" value="true">
 
-        <td>
-          <%= a_delivery_tracker.arrival %>
-        </td>
-
-        <td>
-          <%= a_delivery_tracker.details %>
-        </td>
-
-        <td>
-          <%= a_delivery_tracker.status %>
-        </td>
-
-        <td>
-          <%= time_ago_in_words(a_delivery_tracker.created_at) %> ago
-        </td>
-        <td>
-          <%= time_ago_in_words(a_delivery_tracker.updated_at) %> ago
-        </td>
-
-        <td>
-          <a href="/delivery_trackers/<%= a_delivery_tracker.id %>">
-            Show details
-          </a>
-        </td>
-      </tr>
-      <% end %>
-    </table>
-  </div>
+            <button>Mark as received</button>
+          </form>
+        </div>
+        
+        <br>
+      </li>
+  </ul>
 </div>
 
 <hr>
+
+<div class="received">
+  <h2>Received</h2>
+
+  <ul>
+      <li>
+        <div>Heavy Duty Iron Shoes</div>
+
+        <div>
+          <small>
+            Updated 41 minutes ago
+
+            <a href="/delete_delivery/186186">Delete</a>
+          </small>
+        </div>
+      </li>
+      <li>
+        <div>Sleek Granite Lamp</div>
+
+        <div>
+          <small>
+            Updated 41 minutes ago
+
+            <a href="/delete_delivery/186183">Delete</a>
+          </small>
+        </div>
+      </li>
+      <li>
+        <div>Fantastic Leather Coat</div>
+
+        <div>
+          <small>
+            Updated 41 minutes ago
+
+            <a href="/delete_delivery/186180">Delete</a>
+          </small>
+        </div>
+      </li>
+  </ul>
+</div>
+
+  </body>
+</html>

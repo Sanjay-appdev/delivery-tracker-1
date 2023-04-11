@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-
+  get("/", { :controller => "delivery_trackers", :action => "index" })
 
   # Routes for the Delivery tracker resource:
 
