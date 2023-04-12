@@ -8,9 +8,9 @@ Rails.application.routes.draw do
   post("/insert_delivery_tracker", { :controller => "delivery_trackers", :action => "create" })
           
   # READ
-  get("/delivery_trackers", { :controller => "delivery_trackers", :action => "index" })
+  get("/delivery_tracker", { :controller => "delivery_trackers", :action => "index" })
   
-  get("/delivery_trackers/:path_id", { :controller => "delivery_trackers", :action => "show" })
+  get("/delivery_tracker/:path_id", { :controller => "delivery_trackers", :action => "show" })
   
   # UPDATE
   

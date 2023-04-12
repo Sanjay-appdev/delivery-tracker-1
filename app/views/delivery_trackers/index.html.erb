@@ -1,157 +1,90 @@
 <body>
-      <a href="/">Your todo list</a>
-      |
-      <a href="/edit_user_profile">Edit profile</a>
-      |
-      <a href="/user_sign_out">Sign out</a>
-    
-      <p>Deleted.</p>
+  <a href="/">Your todo list</a>
+  |
+  <a href="/edit_user_profile">Edit profile</a>
+  |
+  <a href="/user_sign_out">Sign out</a>
+  <p>Marked as received.</p>
 
-    
+  <div>
     <div>
-  <div>
-    <h1>
-      Delivery Tracker
-    </h1>
-
-    <p>Know if something gets lost in the mail.</p>
+      <h1>Delivery Tracker</h1>
+      <p>Know if something gets lost in the mail.</p>
+    </div>
   </div>
-</div>
 
-<hr>
+  <hr>
 
-<div>
   <div>
-    <h2>
-      Expecting a package?
-    </h2>
+    <div>
+      <h2>Expecting a package?</h2>
 
-    <form action="/insert_delivery" method="post">
-      <div>
-        <label for="description_box">
-          Description
-        </label>
+      <form action="/insert_delivery" method="post">
+        <div>
+          <label for="description_box">Description</label>
+          <input type="text" id="description_box" name="query_description">
+        </div>
 
-        <input type="text" id="description_box" name="query_description">
-      </div>
+        <div>
+          <label for="supposed_to_arrive_on_box">Supposed to arrive on</label>
+          <input type="date" id="supposed_to_arrive_on_box" name="query_supposed_to_arrive_on">
+        </div>
 
-      <div>
-        <label for="supposed_to_arrive_on_box">
-          Supposed to arrive on
-        </label>
+        <div>
+          <label for="details_box">Details</label>
+          <textarea id="details_box" name="query_details" rows="3"></textarea>
+        </div>
 
-        <input type="date" id="supposed_to_arrive_on_box" name="query_supposed_to_arrive_on">
-      </div>
-
-      <div>
-        <label for="details_box">
-          Details
-        </label>
-
-        <textarea id="details_box" name="query_details" rows="3"></textarea>
-      </div>
-
-      <button>
-        Log delivery
-      </button>
-    </form>
+        <button>Log delivery</button>
+      </form>
+    </div>
   </div>
-</div>
 
-<hr>
+  <hr>
 
-<div class="waiting_on">
-  <h2>Waiting on</h2>
+  <div class="waiting_on">
+    <h2>Waiting on</h2>
 
-  <ul>
-      <li>
-        <div>Incredible Plastic Watch</div>
+    <ul>
+      <% @list_of_delivery_trackers.each do |delivery| %>
+        <li>
+          <div><%= delivery.description %></div>
 
-        <div style="">
-          Supposed to arrive on
-          2023-04-14
-        </div>
+          <div style="">
+            Supposed to arrive on <%= delivery.supposed_to_arrive_on.strftime('%Y-%m-%d') %>
+          </div>
 
-        <div>
-          USPS tracking #553290281187
-        </div>
+          <div>
+            <%= delivery.details %>
+          </div>
 
-        <div>
-          <form action="/modify_delivery/186182" method="post">
-            <input type="hidden" name="arrived" value="true">
+          <div>
+            <form action="/modify_delivery/<%= delivery.id %>" method="post">
+              <input type="hidden" name="arrived" value="true">
+              <button>Mark as received</button>
+            </form>
+          </div>
 
-            <button>Mark as received</button>
-          </form>
-        </div>
-        
-        <br>
-      </li>
-      <li>
-        <div>Enormous Leather Clock</div>
+          <br>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 
-        <div style="">
-          Supposed to arrive on
-          2023-04-20
-        </div>
-
-        <div>
-          
-        </div>
-
-        <div>
-          <form action="/modify_delivery/186185" method="post">
-            <input type="hidden" name="arrived" value="true">
-
-            <button>Mark as received</button>
-          </form>
-        </div>
-        
-        <br>
-      </li>
-  </ul>
-</div>
-
-<hr>
-
+  <hr>
 <div class="received">
-  <h2>Received</h2>
-
-  <ul>
-      <li>
-        <div>Heavy Duty Iron Shoes</div>
-
-        <div>
-          <small>
-            Updated 41 minutes ago
-
-            <a href="/delete_delivery/186186">Delete</a>
-          </small>
-        </div>
-      </li>
-      <li>
-        <div>Sleek Granite Lamp</div>
-
-        <div>
-          <small>
-            Updated 41 minutes ago
-
-            <a href="/delete_delivery/186183">Delete</a>
-          </small>
-        </div>
-      </li>
-      <li>
-        <div>Fantastic Leather Coat</div>
-
-        <div>
-          <small>
-            Updated 41 minutes ago
-
-            <a href="/delete_delivery/186180">Delete</a>
-          </small>
-        </div>
-      </li>
-  </ul>
-</div>
-
-  </body>
-</html>
+    <h2>Received</h2>
+    <ul>
+      <% @received_items.each do |item| %>
+        <li>
+          <div><%= item %></div>
+          <div>
+            <small>
+              Updated less than a minute ago
+              <a href="/delete_delivery/<%= item.id %>">Delete</a>
+            </small>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
