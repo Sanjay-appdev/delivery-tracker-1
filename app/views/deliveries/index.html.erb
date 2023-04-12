@@ -1,8 +1,20 @@
-<div>
+<body>
+      <a href="/">Your todo list</a>
+      |
+      <a href="/edit_user_profile">Edit profile</a>
+      |
+      <a href="/user_sign_out">Sign out</a>
+    
+      <p>Marked as received.</p>
+
+    
+    <div>
   <div>
     <h1>
-      List of all deliveries
+      Delivery Tracker
     </h1>
+
+    <p>Know if something gets lost in the mail.</p>
   </div>
 </div>
 
@@ -11,7 +23,7 @@
 <div>
   <div>
     <h2>
-      Add a new delivery
+      Expecting a package?
     </h2>
 
     <form action="/insert_delivery" method="post">
@@ -24,11 +36,11 @@
       </div>
 
       <div>
-        <label for="arrive_box">
-          Arrive
+        <label for="supposed_to_arrive_on_box">
+          Supposed to arrive on
         </label>
 
-        <input type="date" id="arrive_box" name="query_arrive">
+        <input type="date" id="supposed_to_arrive_on_box" name="query_supposed_to_arrive_on">
       </div>
 
       <div>
@@ -36,99 +48,74 @@
           Details
         </label>
 
-        <input type="text" id="details_box" name="query_details">
-      </div>
-
-      <div>
-        <label for="status_box">
-          Status
-        </label>
-
-        <input type="text" id="status_box" name="query_status">
+        <textarea id="details_box" name="query_details" rows="3"></textarea>
       </div>
 
       <button>
-        Create delivery
+        Log delivery
       </button>
     </form>
   </div>
 </div>
 
 <hr>
-<div>
-  <div>
-    <table border="1">
-      <tr>
-        <th>
-          ID
-        </th>
 
-        <th>
-          Description
-        </th>
+<div class="waiting_on">
+  <h2>Waiting on</h2>
 
-        <th>
-          Arrive
-        </th>
+  <ul>
+      <li>
+        <div>learn HTML</div>
 
-        <th>
-          Details
-        </th>
+        <div style="color: red">
+          Supposed to arrive on
+          2023-04-03
+        </div>
 
-        <th>
-          Status
-        </th>
+        <div>
+          dsjnvjkfnvjknvj c jm
+        </div>
 
-        <th>
-          Created at
-        </th>
+        <div>
+          <form action="/modify_delivery/186532" method="post">
+            <input type="hidden" name="arrived" value="true">
 
-        <th>
-          Updated at
-        </th>
-
-        <th>
-        </th>
-      </tr>
-
-      <% @list_of_deliveries.each do |a_delivery| %>
-      <tr>
-        <td>
-          <%= a_delivery.id %>
-        </td>
-
-        <td>
-          <%= a_delivery.description %>
-        </td>
-
-        <td>
-          <%= a_delivery.arrive %>
-        </td>
-
-        <td>
-          <%= a_delivery.details %>
-        </td>
-
-        <td>
-          <%= a_delivery.status %>
-        </td>
-
-        <td>
-          <%= time_ago_in_words(a_delivery.created_at) %> ago
-        </td>
-        <td>
-          <%= time_ago_in_words(a_delivery.updated_at) %> ago
-        </td>
-
-        <td>
-          <a href="/deliveries/<%= a_delivery.id %>">
-            Show details
-          </a>
-        </td>
-      </tr>
-      <% end %>
-    </table>
-  </div>
+            <button>Mark as received</button>
+          </form>
+        </div>
+        
+        <br>
+      </li>
+  </ul>
 </div>
 
 <hr>
+
+<div class="received">
+  <h2>Received</h2>
+
+  <ul>
+      <li>
+        <div>solve the example</div>
+
+        <div>
+          <small>
+            Updated less than a minute ago
+
+            <a href="/delete_delivery/186533">Delete</a>
+          </small>
+        </div>
+      </li>
+      <li>
+        <div>i play cricket</div>
+
+        <div>
+          <small>
+            Updated less than a minute ago
+
+            <a href="/delete_delivery/186531">Delete</a>
+          </small>
+        </div>
+      </li>
+  </ul>
+</div>
