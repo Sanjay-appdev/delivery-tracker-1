@@ -1,10 +1,11 @@
 class CreateDeliveryTrackers < ActiveRecord::Migration[6.0]
   def change
     create_table :delivery_trackers do |t|
-      t.text :description
+      t.string :description
       t.date :arrival
-      t.text :details
+      t.string :details
       t.string :status
+      t.integer :user_id
 
       t.timestamps
     end
