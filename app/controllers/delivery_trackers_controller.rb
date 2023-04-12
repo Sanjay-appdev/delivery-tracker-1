@@ -21,7 +21,7 @@ class DeliveryTrackersController < ApplicationController
   def create
     the_delivery_tracker = DeliveryTracker.new
     the_delivery_tracker.description = params.fetch("query_description")
-    the_delivery_tracker.arrival = params.fetch("query_arrival")
+    #the_delivery_tracker.arrival = params.fetch("query_arrival")
     the_delivery_tracker.details = params.fetch("query_details")
     the_delivery_tracker.status ="waiting_on"
 
