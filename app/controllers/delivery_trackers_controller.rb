@@ -1,9 +1,10 @@
 class DeliveryTrackersController < ApplicationController
   def index
-    matching_delivery_trackers = DeliveryTracker.all
-
+    matching_delivery_trackers = DeliveryTracker.where ({:user_id => session.fetch(:user_id)})
     @list_of_delivery_trackers = matching_delivery_trackers.order({ :created_at => :desc })
-
+    @list_waiting_on = matching_delivery_trackers.where({:status =>"waiting_on"}) 
+    @received = matching_delivery_trackers.where({:status => "received"}) 
+     
     render({ :template => "delivery_trackers/index.html.erb" })
   end
 
@@ -22,7 +23,7 @@ class DeliveryTrackersController < ApplicationController
     the_delivery_tracker.description = params.fetch("query_description")
     the_delivery_tracker.arrival = params.fetch("query_arrival")
     the_delivery_tracker.details = params.fetch("query_details")
-    the_delivery_tracker.status = params.fetch("query_status")
+    the_delivery_tracker.status ="waiting_on"
 
     if the_delivery_tracker.valid?
       the_delivery_tracker.save
