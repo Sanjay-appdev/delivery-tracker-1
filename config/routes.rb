@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # Routes for the Delivery tracker resource:
 
   # CREATE
-  post("/insert_delivery_tracker", { :controller => "delivery_trackers", :action => "create" })
+  post("/insert_delivery", { :controller => "delivery_trackers", :action => "create" })
           
   # READ
   get("/delivery_trackers", { :controller => "delivery_trackers", :action => "index" })

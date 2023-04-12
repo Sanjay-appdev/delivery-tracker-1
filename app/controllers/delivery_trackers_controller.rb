@@ -3,7 +3,7 @@ class DeliveryTrackersController < ApplicationController
     matching_delivery_trackers = DeliveryTracker.where ({:user_id => session.fetch(:user_id)})
     @list_of_delivery_trackers = matching_delivery_trackers.order({ :created_at => :desc })
     @list_waiting_on = matching_delivery_trackers.where({:status =>"waiting_on"}) 
-    @received = matching_delivery_trackers.where({:status => "received"}) 
+    @received_items= matching_delivery_trackers.where({:status => "received"}) 
      
     render({ :template => "delivery_trackers/index.html.erb" })
   end
