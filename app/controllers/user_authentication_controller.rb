@@ -19,7 +19,7 @@ class UserAuthenticationController < ApplicationController
       else
         session[:user_id] = user.id
       
-        redirect_to("/", { :notice => "Signed in successfully." })
+        redirect_to("/", { :notice => "Added to list." })
       end
     else
       redirect_to("/user_sign_in", { :alert => "No user with that email address." })
@@ -29,11 +29,12 @@ class UserAuthenticationController < ApplicationController
   def destroy_cookies
     reset_session
 
-    redirect_to("/", { :notice => "Signed out successfully." })
+    redirect_to("/user_sign_in", { :notice => "Signed out successfully." })
   end
 
   def sign_up_form
-    render({ :template => "user_authentication/sign_up.html.erb" })
+    #render({ :template => "user_authentication/sign_up.html.erb" })
+    redirect_to("/", { :notice => "User account created successfully" }))
   end
 
   def create

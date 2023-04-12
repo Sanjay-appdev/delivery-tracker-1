@@ -1,10 +1,10 @@
-<body>
+<!--body>
   <a href="/">Your todo list</a>
   |
   <a href="/edit_user_profile">Edit profile</a>
   |
   <a href="/user_sign_out">Sign out</a>
-  <p>Marked as received.</p>
+  <p>Marked as received.</p-->
 
   <div>
     <div>
@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <!--hr-->
+  <hr>
 
   <div>
     <div>
@@ -27,7 +27,7 @@
 
         <div>
           <label for="supposed_to_arrive_on_box">Supposed to arrive on</label>
-          <input type="date" id="supposed_to_arrive_on_box" name="query_supposed_to_arrive_on">
+          <input type="date" id="supposed_to_arrive_on_box" name="query_arrival">
         </div>
 
         <div>
@@ -40,18 +40,18 @@
     </div>
   </div>
 
-  <!---hr-->
+<hr>
 
   <div class="waiting_on">
     <h2>Waiting on</h2>
-
+     
     <ul>
-      <% @list_of_delivery_trackers.each do |delivery| %>
+     <% @list_waiting_on.each do |delivery| %>
         <li>
           <div><%= delivery.description %></div>
 
-          <div style="">
-            supposed to arrive on <%= delivery.supposed_to_arrive_on.strftime('%Y-%m-%d') %>
+          <div>
+           Supposed to arrive on <%= delivery.arrival %>
           </div>
 
           <div>
@@ -59,8 +59,8 @@
           </div>
 
           <div>
-            <form action="/modify_delivery/<%= delivery.id %>" method="post">
-              <input type="hidden" name="arrived" value="true">
+            <form action="/modify_delivery_tracker/<%= delivery.id %>" method="post">
+              <input type="hidden" name="query_status" value="received">
               <button>Mark as received</button>
             </form>
           </div>
@@ -75,16 +75,18 @@
 <div class="received">
     <h2>Received</h2>
     <ul>
-      <% @received_items.each do |item| %>
+      <% @received_items.each do |delivery| %>
         <li>
-          <div><%= item %></div>
+          <div> <%= delivery.description %></div>
           <div>
             <small>
-              Updated less than a minute ago
-              <a href="/delete_delivery/<%= item.id %>">Delete</a>
+              Updated <%= time_ago_in_words(delivery.updated_at)%> ago
+              <a href="/delete_delivery/<%= delivery.id %>">Delete</a>
             </small>
           </div>
         </li>
-      <% end %>
+      
     </ul>
+    <% end %>
   </div>
+  

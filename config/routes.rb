@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   post("/modify_delivery_tracker/:path_id", { :controller => "delivery_trackers", :action => "update" })
   
   # DELETE
-  get("/delete_delivery_tracker/:path_id", { :controller => "delivery_trackers", :action => "destroy" })
+  get("/delete_delivery/:path_id", { :controller => "delivery_trackers", :action => "destroy" })
 
   #------------------------------
 
