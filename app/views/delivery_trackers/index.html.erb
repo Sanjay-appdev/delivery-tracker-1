@@ -42,21 +42,19 @@
 
 <hr>
 
-  <div class="waiting_on">
+  <div class="waiting_on" style="background-color:lightyellow;"">
     <h2>Waiting on</h2>
      
     <ul>
      <% @list_waiting_on.each do |delivery| %>
         <li>
           <div><%= delivery.description %></div>
-
-          <div>
+          <% @days_gap = (Date.today - delivery.date_to_arrive).to_i %>
+          <% if @days_gap > 3 %>
+           <div style="color: red;">
            Supposed to arrive on <%= delivery.arrival %>
           </div>
-
-          <div>
-            <%= delivery.details %>
-          </div>
+          <div style="background-color:lightyellow;">
 
           <div>
             <form action="/modify_delivery_tracker/<%= delivery.id %>" method="post">
@@ -64,21 +62,33 @@
               <button>Mark as received</button>
             </form>
           </div>
-
-          <!--br-->
-        </li>
-      <% end %>
-    </ul>
+          <% else %>
+          <div style="color: balck;">
+          Supposed to arrive on
+          <%= delivery.date_to_arrive %>
+          </div>
+          <%= delivery.details %>
+          <div style="background-color:lightyellow;">
+          <form action="/modify_delivery_tracker/<%= delivery.id %>" method="post">
+              <input type="hidden" name="query_status" value="received">
+              <button>Mark as received</button>
+              </form>
+              </div>
+              <% end %>
+           </li>
+      
+         </ul>
+         <% end %>
   </div>
 
   <hr>
-<div class="received">
+  <div class="received" style="background-color:lightgreen;">
     <h2>Received</h2>
     <ul>
       <% @received_items.each do |delivery| %>
         <li>
           <div> <%= delivery.description %></div>
-          <div>
+          <div style="">
             <small>
               Updated <%= time_ago_in_words(delivery.updated_at)%> ago
               <a href="/delete_delivery/<%= delivery.id %>">Delete</a>
