@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     if @current_user == nil
       redirect_to("/user_sign_in", { :notice => "You have to sign in first." })
     else 
-      redirect_to ("/", {  :notice => "Signed in successfully." })
+     redirect_to("/", {  :notice => "Signed in successfully." })
     end
   end
 
