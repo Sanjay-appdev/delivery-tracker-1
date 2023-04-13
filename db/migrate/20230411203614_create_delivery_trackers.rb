@@ -5,7 +5,6 @@ class CreateDeliveryTrackers < ActiveRecord::Migration[6.0]
       t.date :arrival
       t.string :details
       t.string :status
-      t.integer :user_id
 
       t.timestamps
     end

@@ -5,7 +5,7 @@
   |
   <a href="/user_sign_out">Sign out</a>
   <p>Marked as received.</p-->
-
+<%= debug @current_user %>
   <div>
     <div>
       <h1>Delivery Tracker</h1>
@@ -49,8 +49,7 @@
      <% @list_waiting_on.each do |delivery| %>
         <li>
           <div><%= delivery.description %></div>
-          <% @days_gap = (Date.today - delivery.date_to_arrive).to_i %>
-          <% if @days_gap > 3 %>
+          <% if delivery.days_until_expected_arrival > 3 %>
            <div style="color: red;">
            Supposed to arrive on <%= delivery.arrival %>
           </div>
@@ -63,9 +62,9 @@
             </form>
           </div>
           <% else %>
-          <div style="color: balck;">
+          <div style="color: black;">
           Supposed to arrive on
-          <%= delivery.date_to_arrive %>
+          <%= delivery.arrival %>
           </div>
           <%= delivery.details %>
           <div style="background-color:lightyellow;">
